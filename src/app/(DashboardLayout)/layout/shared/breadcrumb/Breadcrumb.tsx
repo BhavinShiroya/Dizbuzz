@@ -10,7 +10,7 @@ interface BreadCrumbType {
   subtitle?: string;
   items?: any[];
   title: string;
-  children?: JSX.Element;
+  children?: any;
 }
 
 const Breadcrumb = ({ subtitle, items, title, children }: BreadCrumbType) => (
