@@ -159,7 +159,7 @@ const Banner = () => {
                 variant="contained"
                 href="/auth/auth1/login"
               >
-                Log In
+                Log IN
               </Button>
               <Button
                 variant="text"
