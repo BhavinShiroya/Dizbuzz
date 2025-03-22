@@ -65,16 +65,12 @@ const HpHeader = (props: any) => {
           ) : null}
           {lgUp ? (
             <>
-              <Stack spacing={1} direction="row" alignItems="center">
+              {/* <Stack spacing={1} direction="row" alignItems="center">
                 <Navigations />
               </Stack>
-              <Button
-                color="primary"
-                variant="contained"
-                href="/auth/auth1/login"
-              >
+              <Button color="primary" variant="contained" href="">
                 Log In
-              </Button>
+              </Button> */}
             </>
           ) : null}
         </ToolbarStyled>
