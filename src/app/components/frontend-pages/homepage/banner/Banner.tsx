@@ -153,14 +153,14 @@ const Banner = () => {
               mb={4}
               justifyContent="center"
             >
-              <Button
+              {/* <Button
                 color="primary"
                 size="large"
                 variant="contained"
                 href="/auth/auth1/login"
               >
                 Log IN
-              </Button>
+              </Button> */}
               <Button
                 variant="text"
                 color="inherit"
