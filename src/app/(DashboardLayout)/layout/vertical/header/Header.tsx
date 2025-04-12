@@ -1,3 +1,4 @@
+"use client";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -8,7 +9,8 @@ import { styled } from "@mui/material/styles";
 import { useSelector, useDispatch } from "@/store/hooks";
 import {
   toggleSidebar,
-  toggleMobileSidebar, setDarkMode
+  toggleMobileSidebar,
+  setDarkMode,
 } from "@/store/customizer/CustomizerSlice";
 import { IconMenu2, IconMoon, IconSun } from "@tabler/icons-react";
 import Notifications from "./Notification";

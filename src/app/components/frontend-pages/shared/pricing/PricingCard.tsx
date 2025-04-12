@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Grid,
@@ -9,9 +9,15 @@ import {
   Divider,
   Stack,
   Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  TextField,
+  DialogActions,
 } from "@mui/material";
 import Image from "next/image";
 import BlankCard from "../../../shared/BlankCard";
+import axios from "axios";
 
 const Licenses = [
   {
@@ -71,6 +77,50 @@ const Licenses = [
 ];
 
 const PricingCard = () => {
+  const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    mobileNumber: "",
+    amount: "",
+  });
+
+  const handleClickOpen = (e: any) => {
+    e.preventDefault();
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async () => {
+    setOpen(false); // Close modal after submitting
+    const data = {
+      name: formData.name,
+      amount: formData.amount,
+      mobile: formData.mobileNumber,
+      MUID: "MUID " + Date.now(),
+      transactionId: "T" + Date.now(),
+    };
+    try {
+      await axios
+        .post("http://localhost:3000/api/order", data)
+        .then((response) => {
+          if (
+            response.data &&
+            response.data.data.instrumentResponse.redirectInfo.url
+          ) {
+            window.location.href =
+              response.data.data.instrumentResponse.redirectInfo.url;
+          }
+        });
+    } catch (error) {
+      console.log("errrrr", error);
+    }
+  };
   return (
     <>
       <Grid container spacing={3}>
@@ -278,7 +328,12 @@ const PricingCard = () => {
                     </Typography>
                   </Box>
                 </Stack>
-                <Button fullWidth variant="contained" size="large">
+                <Button
+                  fullWidth
+                  variant="contained"
+                  size="large"
+                  onClick={(e) => handleClickOpen(e)}
+                >
                   <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
                     Purchase Now
                   </Typography>
@@ -287,6 +342,47 @@ const PricingCard = () => {
             </BlankCard>
           </Grid>
         ))}
+        <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
+          <DialogTitle>Purchase Details</DialogTitle>
+          <DialogContent>
+            <Stack spacing={2} mt={1}>
+              <TextField
+                label="Name"
+                name="name"
+                variant="outlined"
+                fullWidth
+                value={formData.name}
+                onChange={handleChange}
+              />
+              <TextField
+                label="Mobile Number"
+                name="mobileNumber"
+                variant="outlined"
+                fullWidth
+                type="tel"
+                value={formData.mobileNumber}
+                onChange={handleChange}
+              />
+              <TextField
+                label="Amount"
+                name="amount"
+                variant="outlined"
+                fullWidth
+                type="number"
+                value={formData.amount}
+                onChange={handleChange}
+              />
+            </Stack>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="secondary">
+              Cancel
+            </Button>
+            <Button variant="contained" color="primary" onClick={handleSubmit}>
+              Submit
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Grid>
     </>
   );

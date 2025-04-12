@@ -13,6 +13,7 @@ import Logo from "@/app/(DashboardLayout)/layout/shared/logo/Logo";
 import Navigations from "./Navigations";
 import MobileSidebar from "./MobileSidebar";
 import { IconMenu2 } from "@tabler/icons-react";
+import { Box } from "@mui/material";
 
 const HpHeader = (props: any) => {
   const AppBarStyled = styled(AppBar)(({ theme }) => ({
@@ -68,9 +69,8 @@ const HpHeader = (props: any) => {
               <Stack spacing={1} direction="row" alignItems="center">
                 <Navigations />
               </Stack>
-              <Button color="primary" variant="contained" href="">
-                Log IN
-              </Button>
+
+              <Box></Box>
             </>
           ) : null}
         </ToolbarStyled>

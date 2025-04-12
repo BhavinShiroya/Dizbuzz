@@ -26,15 +26,16 @@ const BCrumb = [
 
 const EcommerceEditProduct = () => {
   return (
-    (<PageContainer title="Edit Product" description="this is Edit Product">
+    <PageContainer title="Edit Product" description="this is Edit Product">
       {/* breadcrumb */}
       <Breadcrumb title="Edit Product" items={BCrumb} />
       <form>
         <Grid container spacing={3}>
           <Grid
             size={{
-              lg: 8
-            }}>
+              lg: 8,
+            }}
+          >
             <Stack spacing={3}>
               <BlankCard>
                 <GeneralCard />
@@ -60,8 +61,9 @@ const EcommerceEditProduct = () => {
 
           <Grid
             size={{
-              lg: 4
-            }}>
+              lg: 4,
+            }}
+          >
             <Stack spacing={3}>
               <BlankCard>
                 <Thumbnail />
@@ -95,7 +97,7 @@ const EcommerceEditProduct = () => {
           </Button>
         </Stack>
       </form>
-    </PageContainer>)
+    </PageContainer>
   );
 };
 

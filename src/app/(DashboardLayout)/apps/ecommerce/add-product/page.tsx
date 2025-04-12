@@ -1,6 +1,9 @@
+"use client";
 import { Box, Button, Grid2 as Grid, Stack } from "@mui/material";
 import Breadcrumb from "@/app/(DashboardLayout)/layout/shared/breadcrumb/Breadcrumb";
 import PageContainer from "@/app/components/container/PageContainer";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 import GeneralCard from "@/app/components/apps/ecommerce/productAdd/GeneralCard";
 import MediaCard from "@/app/components/apps/ecommerce/productAdd/Media";
@@ -11,6 +14,8 @@ import StatusCard from "@/app/components/apps/ecommerce/productAdd/Status";
 import ProductDetails from "@/app/components/apps/ecommerce/productAdd/ProductDetails";
 import ProductTemplate from "@/app/components/apps/ecommerce/productAdd/ProductTemplate";
 import BlankCard from "@/app/components/shared/BlankCard";
+import Header from "@/app/(DashboardLayout)/layout/vertical/header/Header";
+import Sidebar from "@/app/(DashboardLayout)/layout/vertical/sidebar/Sidebar";
 
 const BCrumb = [
   {
@@ -23,68 +28,81 @@ const BCrumb = [
 ];
 
 const EcommerceAddProduct = () => {
-  return (
-    <PageContainer title="Add Product" description="this is Add Product">
-      {/* breadcrumb */}
-      <Breadcrumb title="Add Product" items={BCrumb} />
-      <form>
-        <Grid container spacing={3}>
-          <Grid size={{
-            lg: 8
-          }}>
-            <Stack spacing={3}>
-              <BlankCard>
-                <GeneralCard />
-              </BlankCard>
+  const { data: session } = useSession();
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+  };
 
-              <BlankCard>
-                <MediaCard />
-              </BlankCard>
+  if (session) {
+    return (
+      <PageContainer title="Add Product" description="this is Add Product">
+        {/* breadcrumb */}
+        <Breadcrumb title="Add Product" items={BCrumb} />
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={3}>
+            <Grid
+              size={{
+                lg: 8,
+              }}
+            >
+              <Stack spacing={3}>
+                <BlankCard>
+                  <GeneralCard />
+                </BlankCard>
 
-              <BlankCard>
-                <VariationCard />
-              </BlankCard>
+                <BlankCard>
+                  <MediaCard />
+                </BlankCard>
 
-              <BlankCard>
-                <PricingCard />
-              </BlankCard>
-            </Stack>
+                <BlankCard>
+                  <VariationCard />
+                </BlankCard>
+
+                <BlankCard>
+                  <PricingCard />
+                </BlankCard>
+              </Stack>
+            </Grid>
+
+            <Grid
+              size={{
+                lg: 4,
+              }}
+            >
+              <Stack spacing={3}>
+                <BlankCard>
+                  <Thumbnail />
+                </BlankCard>
+
+                <BlankCard>
+                  <StatusCard />
+                </BlankCard>
+
+                <BlankCard>
+                  <ProductDetails />
+                </BlankCard>
+
+                <BlankCard>
+                  <ProductTemplate />
+                </BlankCard>
+              </Stack>
+            </Grid>
           </Grid>
 
-          <Grid size={{
-              lg: 4
-            }}>
-            <Stack spacing={3}>
-              <BlankCard>
-                <Thumbnail />
-              </BlankCard>
-
-              <BlankCard>
-                <StatusCard />
-              </BlankCard>
-
-              <BlankCard>
-                <ProductDetails />
-              </BlankCard>
-
-              <BlankCard>
-                <ProductTemplate />
-              </BlankCard>
-            </Stack>
-          </Grid>
-        </Grid>
-
-        <Stack direction="row" spacing={2} mt={3}>
-          <Button variant="contained" color="primary">
-            Save Changes
-          </Button>
-          <Button variant="outlined" color="error">
-            Cancel
-          </Button>
-        </Stack>
-      </form>
-    </PageContainer>
-  );
+          <Stack direction="row" spacing={2} mt={3}>
+            <Button variant="contained" color="primary" type="submit">
+              Save Changes
+            </Button>
+            <Button variant="outlined" color="error">
+              Cancel
+            </Button>
+          </Stack>
+        </form>
+      </PageContainer>
+    );
+  } else {
+    return <>{redirect("/admin")}</>;
+  }
 };
 
 export default EcommerceAddProduct;

@@ -1,9 +1,8 @@
 import React from "react";
 import { Providers } from "@/store/providers";
 import MyApp from "./app";
-import NextTopLoader from 'nextjs-toploader';
+import NextTopLoader from "nextjs-toploader";
 import "./global.css";
-
 
 export const metadata = {
   title: "Modernize Main Demo",
@@ -20,7 +19,7 @@ export default function RootLayout({
       <body>
         <NextTopLoader color="#5D87FF" />
         <Providers>
-          <MyApp>{children}</MyApp>
+          <MyApp session={undefined}>{children}</MyApp>
         </Providers>
       </body>
     </html>
