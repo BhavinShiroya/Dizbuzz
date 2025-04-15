@@ -79,7 +79,8 @@ const Profile = () => {
               color="textPrimary"
               fontWeight={600}
             >
-              {session?.user?.name}
+              {/* {session?.user?.name} */}
+              Amol
             </Typography>
             <Typography variant="subtitle2" color="textSecondary">
               Designer
@@ -100,7 +101,7 @@ const Profile = () => {
         {dropdownData.profile.map((profile) => (
           <Box key={profile.title}>
             <Box sx={{ py: 2, px: 0 }} className="hover-text-primary">
-              <Link href={profile.href}>
+              <Link href={""}>
                 <Stack direction="row" spacing={2}>
                   <Box
                     width="45px"
@@ -151,7 +152,7 @@ const Profile = () => {
           </Box>
         ))}
         <Box mt={2}>
-          <Box
+          {/* <Box
             bgcolor="primary.light"
             p={3}
             mb={3}
@@ -176,7 +177,7 @@ const Profile = () => {
                 className="signup-bg"
               />
             </Box>
-          </Box>
+          </Box> */}
           <Button
             // href="/"
             variant="outlined"
