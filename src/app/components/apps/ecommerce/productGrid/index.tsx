@@ -22,7 +22,7 @@ const ProductShop = () => {
       {/* ------------------------------------------- */}
       <Box p={3} flexGrow={1}>
         <ProductList
-          onClick={() => setMobileSidebarOpen(!isMobileSidebarOpen)}
+        // onClick={() => setMobileSidebarOpen(!isMobileSidebarOpen)}
         />
       </Box>
     </>

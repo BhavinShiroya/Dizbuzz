@@ -34,7 +34,7 @@ export const Profile = () => {
           />
 
           <Box>
-            <Typography variant="h6">Mathew</Typography>
+            <Typography variant="h6">Amol</Typography>
             <Typography variant="caption">Designer</Typography>
           </Box>
           <Box sx={{ ml: "auto" }}>

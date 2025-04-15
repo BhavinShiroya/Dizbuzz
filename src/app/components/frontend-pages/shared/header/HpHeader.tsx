@@ -19,7 +19,7 @@ const HpHeader = (props: any) => {
   const AppBarStyled = styled(AppBar)(({ theme }) => ({
     justifyContent: "center",
     [theme.breakpoints.up("lg")]: {
-      minHeight: "100px",
+      minHeight: "80px",
     },
     backgroundColor: theme.palette.primary.light,
   }));

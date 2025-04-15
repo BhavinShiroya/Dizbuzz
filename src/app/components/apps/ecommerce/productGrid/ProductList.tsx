@@ -1,17 +1,18 @@
+"use client";
 import React, { useEffect } from "react";
 import { filter, orderBy } from "lodash";
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import CardContent from '@mui/material/CardContent'
-import Fab from '@mui/material/Fab'
-import { Grid2 as Grid } from '@mui/material'
-import Rating from '@mui/material/Rating'
-import Skeleton from '@mui/material/Skeleton'
-import Stack from '@mui/material/Stack'
-import { Theme } from '@mui/material/styles';
-import Tooltip from '@mui/material/Tooltip'
-import Typography from '@mui/material/Typography'
-import useMediaQuery from '@mui/material/useMediaQuery'
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import CardContent from "@mui/material/CardContent";
+import Fab from "@mui/material/Fab";
+import { Grid2 as Grid } from "@mui/material";
+import Rating from "@mui/material/Rating";
+import Skeleton from "@mui/material/Skeleton";
+import Stack from "@mui/material/Stack";
+import { Theme } from "@mui/material/styles";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Link from "next/link";
 import { useSelector, useDispatch } from "@/store/hooks";
 import {
@@ -31,7 +32,7 @@ interface Props {
   onClick: (event: React.SyntheticEvent | Event) => void;
 }
 
-const ProductList = ({ onClick }: Props) => {
+const ProductList = () => {
   const dispatch = useDispatch();
   const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
 
@@ -136,7 +137,7 @@ const ProductList = ({ onClick }: Props) => {
   }, []);
 
   return (
-    (<Box>
+    <Box>
       {/* ------------------------------------------- */}
       {/* Header Detail page */}
       {/* ------------------------------------------- */}
@@ -144,13 +145,11 @@ const ProductList = ({ onClick }: Props) => {
         {lgUp ? (
           <Typography variant="h5">Products</Typography>
         ) : (
-          <Fab onClick={onClick} color="primary" size="small">
+          <Fab color="primary" size="small">
             <IconMenu2 width="16" />
           </Fab>
         )}
-        <Box>
-          <ProductSearch />
-        </Box>
+        <Box>{/* <ProductSearch /> */}</Box>
       </Stack>
       {/* ------------------------------------------- */}
       {/* Page Listing product */}
@@ -167,8 +166,9 @@ const ProductList = ({ onClick }: Props) => {
                   xs: 12,
                   lg: 4,
                   md: 4,
-                  sm: 6
-                }}>
+                  sm: 6,
+                }}
+              >
                 {/* ------------------------------------------- */}
                 {/* Product Card */}
                 {/* ------------------------------------------- */}
@@ -185,11 +185,14 @@ const ProductList = ({ onClick }: Props) => {
                   </>
                 ) : (
                   <BlankCard className="hoverCard">
-                    <Typography
-                      component={Link}
-                      href={`/apps/ecommerce/detail/${product.id}`}
-                    >
-                      <Image src={product.photo} alt="img" width={250} height={268} style={{ width: "100%" }} />
+                    <Typography component={Link} href={""}>
+                      <Image
+                        src={product.photo}
+                        alt="img"
+                        width={80}
+                        height={200}
+                        style={{ width: "100%" }}
+                      />
                     </Typography>
                     <Tooltip title="Add To Cart">
                       <Fab
@@ -252,8 +255,9 @@ const ProductList = ({ onClick }: Props) => {
                 xs: 12,
                 lg: 12,
                 md: 12,
-                sm: 12
-              }}>
+                sm: 12,
+              }}
+            >
               <Box textAlign="center" mt={6}>
                 <Image src={emptyCart} alt="cart" width={200} />
                 <Typography variant="h2">There is no Product</Typography>
@@ -271,7 +275,7 @@ const ProductList = ({ onClick }: Props) => {
           </>
         )}
       </Grid>
-    </Box>)
+    </Box>
   );
 };
 

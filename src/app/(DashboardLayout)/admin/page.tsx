@@ -81,7 +81,7 @@ export default function Admin() {
         >
           <Box p={4}>
             <AuthLogin
-              title="Welcome to Modernize"
+              title="Welcome to DIZBUZZ"
               subtext={
                 <Typography variant="subtitle1" color="textSecondary" mb={1}>
                   Your Admin Dashboard
@@ -89,7 +89,7 @@ export default function Admin() {
               }
               subtitle={
                 <Stack direction="row" spacing={1} mt={3}>
-                  <Typography
+                  {/* <Typography
                     color="textSecondary"
                     variant="h6"
                     fontWeight="500"
@@ -106,7 +106,7 @@ export default function Admin() {
                     }}
                   >
                     Create an account
-                  </Typography>
+                  </Typography> */}
                 </Stack>
               }
             />

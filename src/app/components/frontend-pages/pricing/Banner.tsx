@@ -1,71 +1,121 @@
 "use client";
 import React from "react";
-import { Box, Typography, Container, Grid } from "@mui/material";
-import Image from "next/image";
+import { Box, Container, Grid } from "@mui/material";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+// Modern Custom Arrows
+const arrowStyle: React.CSSProperties = {
+  position: "absolute",
+  top: "50%",
+  transform: "translateY(-50%)",
+  width: "40px",
+  height: "40px",
+  borderRadius: "50%",
+  backgroundColor: "#fff",
+  border: "1px solid #ccc",
+  boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  zIndex: 2,
+  cursor: "pointer",
+  transition: "all 0.3s ease",
+  paddingBottom: "5px",
+};
+
+const NextArrow = (props: any) => {
+  const { onClick } = props;
+  return (
+    <div style={{ ...arrowStyle, right: "10px" }} onClick={onClick}>
+      <span style={{ fontSize: "27px" }}>›</span>
+    </div>
+  );
+};
+
+const PrevArrow = (props: any) => {
+  const { onClick } = props;
+  return (
+    <div style={{ ...arrowStyle, left: "10px" }} onClick={onClick}>
+      <span style={{ fontSize: "27px" }}>‹</span>
+    </div>
+  );
+};
 
 const Banner = () => {
+  const images = [
+    "https://picsum.photos/id/1015/1600/600",
+    "https://picsum.photos/id/1016/1600/600",
+    "https://picsum.photos/id/1018/1600/600",
+  ];
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+  };
+
   return (
-    <>
+    <Box
+      bgcolor="primary.light"
+      sx={{
+        paddingTop: {
+          // xs: "40px",
+          // lg: "75px",
+        },
+        paddingBottom: {
+          // xs: "40px",
+          // lg: "100px",
+        },
+        marginBottom: "6rem",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
       <Box
-        bgcolor="primary.light"
         sx={{
-          paddingTop: {
-            xs: "40px",
-            lg: "75px",
-          },
-          paddingBottom: {
-            xs: "40px",
-            lg: "100px",
-          },
+          position: "relative",
+          width: "100%",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <Container maxWidth="lg">
-          <Grid container spacing={3} justifyContent="center">
-            <Grid item xs={12} lg={10.7} alignItems="center" textAlign="center">
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Typography
-                  textTransform="uppercase"
-                  fontSize="20px"
-                  mb="30px"
-                  fontWeight="800"
-                  sx={{ backgroundColor: "#fff" }}
-                  width="28%"
-                  py="15px"
-                  borderRadius="50px"
-                  className="active"
-                  border="2px solid #ddd"
-                >
-                  Start from 01.04.2025
-                </Typography>
-              </Box>
-              <Typography
-                // variant="h1"
-                mb={3}
-                color="black"
-                lineHeight={1.4}
-                fontWeight={700}
-                sx={{
-                  fontSize: {
-                    xs: "34px",
-                    sm: "48px",
-                    lg: "35px",
-                  },
-                }}
-              >
-                Be Our 1st of 9 Premium Subscriber and get 27 products,9 Basic
-                product, 9 Standard product, 9 premium product and 1 year
-                service, free
-              </Typography>
-            </Grid>
+        <Grid container spacing={3} justifyContent="center">
+          <Grid
+            item
+            xs={12}
+            lg={12}
+            width="100%"
+            textAlign="center"
+            sx={{ position: "relative" }}
+          >
+            <Slider {...settings}>
+              {images.map((src, index) => (
+                <div key={index}>
+                  <img
+                    src={src}
+                    alt={`Banner ${index + 1}`}
+                    style={{
+                      width: "100%",
+                      maxHeight: "600px",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+              ))}
+            </Slider>
           </Grid>
-        </Container>
+        </Grid>
       </Box>
-    </>
+    </Box>
   );
 };
 

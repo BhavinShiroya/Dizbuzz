@@ -138,6 +138,15 @@ const Footer = () => {
                 </Link>
               </Tooltip>
             </Stack>
+            <Typography fontSize="15px" fontWeight="400" my="22px">
+              Terms & conditions
+            </Typography>
+            <Typography fontSize="15px" fontWeight="400" mb="22px">
+              Privacy policy
+            </Typography>
+            <Typography fontSize="15px" fontWeight="400" mb="22px">
+              Refund Policy
+            </Typography>
           </Grid>
         </Grid>
 
