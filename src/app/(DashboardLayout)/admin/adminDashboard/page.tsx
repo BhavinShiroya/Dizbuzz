@@ -82,6 +82,7 @@ export default function Layout() {
   const customizer = useSelector((state: AppState) => state.customizer);
   const theme = useTheme();
   const { data: session } = useSession();
+  console.log(session);
 
   const {
     register,

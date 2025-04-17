@@ -1,43 +1,70 @@
+import { db } from "@/db";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
-import GitHubProvider from "next-auth/providers/github";
+import { eq } from 'drizzle-orm';
+import { compare } from 'bcryptjs';
+import { z } from 'zod';
+import { usersTable } from "@/db/schema";
 
 const handler = NextAuth({
-  site: process.env.NEXTAUTH_URL || "http://localhost:3000",
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
-    GitHubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        username: { label: "Username", type: "text" },
+        email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        // Add your own authentication logic here
-        if (
-          credentials.username === "admin" &&
-          credentials.password === "admin123"
-        ) {
-          // Return user object if credentials are valid
-          return Promise.resolve({
-            id: 1,
-            name: "Admin",
-            email: "admin@example.com",
-          });
-        } else {
-          // Return null if credentials are invalid
-          return Promise.resolve(null);
+        const parsedCredentials = z
+          .object({ email: z.string().email(), password: z.string().min(6) })
+          .safeParse(credentials);
+
+        if (!parsedCredentials.success) {
+          return null;
+        }
+
+        const { email, password } = parsedCredentials.data;
+        
+        try {
+          const user = await db.select().from(usersTable).where(eq(usersTable.email, email)).limit(1);
+          if (user.length === 0) {
+            return null;
+          }
+          const isValid = await compare(password, user[0].password);
+          if (!isValid) {
+            return null;
+          }
+          return {
+            id: user[0].id,
+            name: user[0].name,
+            email: user[0].email,
+          };
+        } catch (error) {
+          console.error("Error fetching user:", error);
+          return null;
         }
       },
     }),
   ],
+  pages: {
+    signIn: "/login",
+  },
+  session: {
+    strategy: "jwt",
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      console.log('jwt',token,user);
+      if (user) token.email = user.email;
+      return token;
+    },
+    async session({ session, token }) {
+      console.log('session',token, session);
+      if (session.user) {
+        session.user.email = token.email;
+      }
+      return session;
+    },
+  },
 });
 export { handler as GET, handler as POST };

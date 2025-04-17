@@ -19,15 +19,15 @@ import { redirect } from "next/navigation";
 
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
   const { data: session } = useSession();
-  const [username, setUsername] = useState("admin");
-  const [password, setPassword] = useState("admin123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const result = await signIn("credentials", {
       redirect: false,
-      username,
+      email,
       password,
     });
     console.log("🚀 ~ handleSubmit ~ result:", result);
@@ -84,9 +84,9 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
               id="username"
               variant="outlined"
               error={error !== ""}
-              value={username}
+              value={email}
               fullWidth
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </Box>
           <Box>
